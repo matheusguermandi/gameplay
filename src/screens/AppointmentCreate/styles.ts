@@ -30,9 +30,11 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    width: 68,
+    width: 64,
     height: 68,
-    backgroundColor: theme.colors.secondary50,
+    backgroundColor: theme.colors.secondary40,
+    borderColor: theme.colors.secondary50,
+    borderWidth: 1,
     borderRadius: 8,
   },
   field: {
@@ -58,6 +60,6 @@ export const styles = StyleSheet.create({
   },
   footer: {
     marginVertical: 20,
-    marginBottom: 56,
+    marginBottom: 25,
   },
 });
