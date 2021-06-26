@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { BorderlessButton } from 'react-native-gesture-handler';
-import { useRoute } from '@react-navigation/native';
 import { Fontisto } from '@expo/vector-icons';
+import { useRoute } from '@react-navigation/native';
+import { BorderlessButton } from 'react-native-gesture-handler';
 import * as Linking from 'expo-linking';
 
 import {
@@ -16,16 +16,16 @@ import {
 
 import BannerImg from '../../assets/banner.png';
 
+import { styles } from './styles';
 import { theme } from '../../global/styles/theme';
 import { api } from '../../services/api';
-import { styles } from './styles';
 
 import { AppointmentProps } from '../../components/Appointment';
-import { Member, MemberProps } from '../../components/Member';
 import { ListDivider } from '../../components/ListDivider';
 import { Background } from '../../components/Background';
 import { ListHeader } from '../../components/ListHeader';
 import { ButtonIcon } from '../../components/ButtonIcon';
+import { Member, MemberProps } from '../../components/Member';
 import { Header } from '../../components/Header';
 import { Load } from '../../components/Load';
 
@@ -68,6 +68,8 @@ export function AppointmentDetails() {
         ? `Junte-se a ${guildSelected.guild.name}`
         : widget.instant_invite;
 
+    console.log(message, widget.instant_invite);
+
     Share.share({
       message,
       url: widget.instant_invite,
@@ -108,27 +110,16 @@ export function AppointmentDetails() {
         <>
           <ListHeader
             title="Jogadores"
-            subtitle={`Total ${
-              widget.members.length ? widget.members.length : 0
-            }`}
+            subtitle={`Total ${widget.members ? widget.members.length : 0}`}
           />
-          {
-            <FlatList
-              data={widget.members ? widget.members : []} // UPDATE 1# Bom cuidar aqui, caso não encontre um Widget automaticamente não haverá membros.
-              keyExtractor={item => item.id}
-              renderItem={({ item }) => <Member data={item} />}
-              ItemSeparatorComponent={() => <ListDivider isCentered />}
-              style={styles.members}
-              ListEmptyComponent={() => (
-                // UPDATE 2#  Um propriedade para renderizar algo quando a lista e vázia.
-                <View style={styles.emptyContainer}>
-                  <Text style={styles.emptyText}>
-                    Não há ninguém online agora.
-                  </Text>
-                </View>
-              )}
-            />
-          }
+
+          <FlatList
+            data={widget.members}
+            keyExtractor={item => item.id}
+            renderItem={({ item }) => <Member data={item} />}
+            ItemSeparatorComponent={() => <ListDivider isCentered />}
+            style={styles.members}
+          />
         </>
       )}
 
